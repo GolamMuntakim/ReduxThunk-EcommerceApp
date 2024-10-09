@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { createProduct, updateProduct } from "./productSlice";
 
 
-const ProductForm = ({ productToEdit = {}, isEdit = false }) => {
+const ProductForm = ({ productToEdit = {}, isEdit = false, resetForm }) => {
 
     const dispatch = useDispatch()
     const [product, setProduct] = useState({
@@ -32,7 +32,9 @@ const ProductForm = ({ productToEdit = {}, isEdit = false }) => {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        {isEdit ? dispatch(updateProduct({id: productToEdit.id , product:product})) : dispatch(createProduct({ ...product, id: nanoid() }))}
+        {isEdit ? 
+            dispatch(updateProduct({id: productToEdit.id , product:product}))
+             && resetForm() : dispatch(createProduct({ ...product, id: nanoid() }))}
     }
     console.log(product)
     return (
